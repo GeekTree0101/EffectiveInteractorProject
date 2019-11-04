@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,9 @@
 		DA3DA6C9237063D6009EDD5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3DA6C8237063D6009EDD5A /* Assets.xcassets */; };
 		DA3DA6CC237063D6009EDD5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3DA6CA237063D6009EDD5A /* LaunchScreen.storyboard */; };
 		DA3DA6D7237063D6009EDD5A /* EffectiveInteractorProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6D6237063D6009EDD5A /* EffectiveInteractorProjectTests.swift */; };
+		DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E5237064EA009EDD5A /* Card.swift */; };
+		DA3DA6E823706553009EDD5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E723706553009EDD5A /* User.swift */; };
+		DA3DA6EA2370662C009EDD5A /* CardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E92370662C009EDD5A /* CardInteractor.swift */; };
 		EE968979D8073B135A39064F /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0BA42325E4265FDACA4B40 /* Pods_EffectiveInteractorProjectTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +42,9 @@
 		DA3DA6D2237063D6009EDD5A /* EffectiveInteractorProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EffectiveInteractorProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3DA6D6237063D6009EDD5A /* EffectiveInteractorProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveInteractorProjectTests.swift; sourceTree = "<group>"; };
 		DA3DA6D8237063D6009EDD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3DA6E5237064EA009EDD5A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		DA3DA6E723706553009EDD5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DA3DA6E92370662C009EDD5A /* CardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInteractor.swift; sourceTree = "<group>"; };
 		F4D64891BE9BEDD60A1B4382 /* Pods-EffectiveInteractorProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject.release.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject/Pods-EffectiveInteractorProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +76,6 @@
 				27B2722CA836F04C5C1D9879 /* Pods-EffectiveInteractorProjectTests.debug.xcconfig */,
 				2A3D5928190986F1D19E86B3 /* Pods-EffectiveInteractorProjectTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -97,6 +102,8 @@
 		DA3DA6BE237063D5009EDD5A /* EffectiveInteractorProject */ = {
 			isa = PBXGroup;
 			children = (
+				DA3DA6E4237064E1009EDD5A /* Scene */,
+				DA3DA6E3237064DA009EDD5A /* Model */,
 				DA3DA6BF237063D5009EDD5A /* AppDelegate.swift */,
 				DA3DA6C8237063D6009EDD5A /* Assets.xcassets */,
 				DA3DA6CA237063D6009EDD5A /* LaunchScreen.storyboard */,
@@ -112,6 +119,23 @@
 				DA3DA6D8237063D6009EDD5A /* Info.plist */,
 			);
 			path = EffectiveInteractorProjectTests;
+			sourceTree = "<group>";
+		};
+		DA3DA6E3237064DA009EDD5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA3DA6E5237064EA009EDD5A /* Card.swift */,
+				DA3DA6E723706553009EDD5A /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA3DA6E4237064E1009EDD5A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				DA3DA6E92370662C009EDD5A /* CardInteractor.swift */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		DA95A9059B9104D5E724D713 /* Frameworks */ = {
@@ -308,7 +332,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3DA6EA2370662C009EDD5A /* CardInteractor.swift in Sources */,
 				DA3DA6C0237063D5009EDD5A /* AppDelegate.swift in Sources */,
+				DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */,
+				DA3DA6E823706553009EDD5A /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
