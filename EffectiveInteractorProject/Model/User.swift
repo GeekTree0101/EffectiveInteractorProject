@@ -14,6 +14,10 @@ struct User: Decodable {
   var id: Int
   var username: String?
   
+  init(id: Int) {
+    self.id = id
+  }
+  
   init(from decoder: Decoder) throws {
     
     id = try! decoder.decode("id")

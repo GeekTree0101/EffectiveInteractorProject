@@ -15,6 +15,10 @@ struct Card: Decodable {
   var title: String?
   var content: String?
   
+  init(id: Int) {
+    self.id = id
+  }
+  
   init(from decoder: Decoder) throws {
     
     id = try! decoder.decode("id")

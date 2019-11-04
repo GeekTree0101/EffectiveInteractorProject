@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		B7CD2C324E8FDD0121A2CF68 /* Pods_EffectiveInteractorProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F36A5568CB663B4A9893A85 /* Pods_EffectiveInteractorProject.framework */; };
+		D6E97E447FDCDEA59FC7775C /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4F0AA3778905367F6BA93F /* Pods_EffectiveInteractorProjectTests.framework */; };
 		DA3DA6C0237063D5009EDD5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6BF237063D5009EDD5A /* AppDelegate.swift */; };
 		DA3DA6C9237063D6009EDD5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3DA6C8237063D6009EDD5A /* Assets.xcassets */; };
 		DA3DA6CC237063D6009EDD5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3DA6CA237063D6009EDD5A /* LaunchScreen.storyboard */; };
-		DA3DA6D7237063D6009EDD5A /* EffectiveInteractorProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6D6237063D6009EDD5A /* EffectiveInteractorProjectTests.swift */; };
 		DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E5237064EA009EDD5A /* Card.swift */; };
 		DA3DA6E823706553009EDD5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E723706553009EDD5A /* User.swift */; };
 		DA3DA6EA2370662C009EDD5A /* CardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E92370662C009EDD5A /* CardInteractor.swift */; };
 		DA3DA6EC2370664C009EDD5A /* CardWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6EB2370664C009EDD5A /* CardWorker.swift */; };
-		EE968979D8073B135A39064F /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0BA42325E4265FDACA4B40 /* Pods_EffectiveInteractorProjectTests.framework */; };
+		DA3DA6EE237068DD009EDD5A /* CardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6ED237068DD009EDD5A /* CardPresenter.swift */; };
+		DA3DA6F023706943009EDD5A /* CardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6EF23706943009EDD5A /* CardModels.swift */; };
+		DA3DA6F123706BE3009EDD5A /* CardInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6D6237063D6009EDD5A /* CardInteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,23 +32,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A4F0AA3778905367F6BA93F /* Pods_EffectiveInteractorProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EffectiveInteractorProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B2722CA836F04C5C1D9879 /* Pods-EffectiveInteractorProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProjectTests/Pods-EffectiveInteractorProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A3D5928190986F1D19E86B3 /* Pods-EffectiveInteractorProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProjectTests.release.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProjectTests/Pods-EffectiveInteractorProjectTests.release.xcconfig"; sourceTree = "<group>"; };
-		2C0BA42325E4265FDACA4B40 /* Pods_EffectiveInteractorProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EffectiveInteractorProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4157011A038D21586453ACDD /* Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests/Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A86EEEB9BE5C2B87B494EED /* Pods-EffectiveInteractorProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject.debug.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject/Pods-EffectiveInteractorProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4F36A5568CB663B4A9893A85 /* Pods_EffectiveInteractorProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EffectiveInteractorProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2A952FDA1FFC4FD72507A39 /* Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.release.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests/Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA3DA6BC237063D5009EDD5A /* EffectiveInteractorProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EffectiveInteractorProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3DA6BF237063D5009EDD5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA3DA6C8237063D6009EDD5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA3DA6CB237063D6009EDD5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA3DA6CD237063D6009EDD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA3DA6D2237063D6009EDD5A /* EffectiveInteractorProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EffectiveInteractorProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA3DA6D6237063D6009EDD5A /* EffectiveInteractorProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveInteractorProjectTests.swift; sourceTree = "<group>"; };
+		DA3DA6D6237063D6009EDD5A /* CardInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInteractorTests.swift; sourceTree = "<group>"; };
 		DA3DA6D8237063D6009EDD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA3DA6E5237064EA009EDD5A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DA3DA6E723706553009EDD5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DA3DA6E92370662C009EDD5A /* CardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInteractor.swift; sourceTree = "<group>"; };
 		DA3DA6EB2370664C009EDD5A /* CardWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWorker.swift; sourceTree = "<group>"; };
+		DA3DA6ED237068DD009EDD5A /* CardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresenter.swift; sourceTree = "<group>"; };
+		DA3DA6EF23706943009EDD5A /* CardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModels.swift; sourceTree = "<group>"; };
 		F4D64891BE9BEDD60A1B4382 /* Pods-EffectiveInteractorProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject.release.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject/Pods-EffectiveInteractorProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE968979D8073B135A39064F /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */,
+				D6E97E447FDCDEA59FC7775C /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +83,8 @@
 				F4D64891BE9BEDD60A1B4382 /* Pods-EffectiveInteractorProject.release.xcconfig */,
 				27B2722CA836F04C5C1D9879 /* Pods-EffectiveInteractorProjectTests.debug.xcconfig */,
 				2A3D5928190986F1D19E86B3 /* Pods-EffectiveInteractorProjectTests.release.xcconfig */,
+				4157011A038D21586453ACDD /* Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.debug.xcconfig */,
+				B2A952FDA1FFC4FD72507A39 /* Pods-EffectiveInteractorProject-EffectiveInteractorProjectTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -117,7 +125,7 @@
 		DA3DA6D5237063D6009EDD5A /* EffectiveInteractorProjectTests */ = {
 			isa = PBXGroup;
 			children = (
-				DA3DA6D6237063D6009EDD5A /* EffectiveInteractorProjectTests.swift */,
+				DA3DA6D6237063D6009EDD5A /* CardInteractorTests.swift */,
 				DA3DA6D8237063D6009EDD5A /* Info.plist */,
 			);
 			path = EffectiveInteractorProjectTests;
@@ -137,6 +145,8 @@
 			children = (
 				DA3DA6E92370662C009EDD5A /* CardInteractor.swift */,
 				DA3DA6EB2370664C009EDD5A /* CardWorker.swift */,
+				DA3DA6ED237068DD009EDD5A /* CardPresenter.swift */,
+				DA3DA6EF23706943009EDD5A /* CardModels.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -145,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				4F36A5568CB663B4A9893A85 /* Pods_EffectiveInteractorProject.framework */,
-				2C0BA42325E4265FDACA4B40 /* Pods_EffectiveInteractorProjectTests.framework */,
+				1A4F0AA3778905367F6BA93F /* Pods_EffectiveInteractorProjectTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -339,6 +349,8 @@
 				DA3DA6C0237063D5009EDD5A /* AppDelegate.swift in Sources */,
 				DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */,
 				DA3DA6E823706553009EDD5A /* User.swift in Sources */,
+				DA3DA6EE237068DD009EDD5A /* CardPresenter.swift in Sources */,
+				DA3DA6F023706943009EDD5A /* CardModels.swift in Sources */,
 				DA3DA6EC2370664C009EDD5A /* CardWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA3DA6D7237063D6009EDD5A /* EffectiveInteractorProjectTests.swift in Sources */,
+				DA3DA6F123706BE3009EDD5A /* CardInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +435,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -477,7 +489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -534,7 +546,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JTEXWEH4CZ;
 				INFOPLIST_FILE = EffectiveInteractorProjectTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,7 +569,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JTEXWEH4CZ;
 				INFOPLIST_FILE = EffectiveInteractorProjectTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
