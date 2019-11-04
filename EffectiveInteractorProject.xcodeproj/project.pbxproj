@@ -15,6 +15,7 @@
 		DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E5237064EA009EDD5A /* Card.swift */; };
 		DA3DA6E823706553009EDD5A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E723706553009EDD5A /* User.swift */; };
 		DA3DA6EA2370662C009EDD5A /* CardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6E92370662C009EDD5A /* CardInteractor.swift */; };
+		DA3DA6EC2370664C009EDD5A /* CardWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3DA6EB2370664C009EDD5A /* CardWorker.swift */; };
 		EE968979D8073B135A39064F /* Pods_EffectiveInteractorProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0BA42325E4265FDACA4B40 /* Pods_EffectiveInteractorProjectTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		DA3DA6E5237064EA009EDD5A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DA3DA6E723706553009EDD5A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DA3DA6E92370662C009EDD5A /* CardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInteractor.swift; sourceTree = "<group>"; };
+		DA3DA6EB2370664C009EDD5A /* CardWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWorker.swift; sourceTree = "<group>"; };
 		F4D64891BE9BEDD60A1B4382 /* Pods-EffectiveInteractorProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EffectiveInteractorProject.release.xcconfig"; path = "Target Support Files/Pods-EffectiveInteractorProject/Pods-EffectiveInteractorProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				DA3DA6E92370662C009EDD5A /* CardInteractor.swift */,
+				DA3DA6EB2370664C009EDD5A /* CardWorker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				DA3DA6C0237063D5009EDD5A /* AppDelegate.swift in Sources */,
 				DA3DA6E6237064EA009EDD5A /* Card.swift in Sources */,
 				DA3DA6E823706553009EDD5A /* User.swift in Sources */,
+				DA3DA6EC2370664C009EDD5A /* CardWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
