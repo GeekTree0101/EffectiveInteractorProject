@@ -219,3 +219,6 @@ Then: worker.getCard must be called once.
     expect(worker.getCardCalled).toEventually(equal(0)) // worker.getCard must be called once.
   }
 ```
+
+# Pagination Flow
+<img src="https://github.com/GeekTree0101/EffectiveInteractorProject/blob/master/res/preview2.png" />
