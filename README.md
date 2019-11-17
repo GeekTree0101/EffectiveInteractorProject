@@ -414,5 +414,5 @@ extension CardInteractorTests {
 
 ```
 
-# Pagination Flow
+# Pagination Flow (Coming soon)
 <img src="https://github.com/GeekTree0101/EffectiveInteractorProject/blob/master/res/preview2.png" />
