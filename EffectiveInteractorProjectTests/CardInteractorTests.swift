@@ -78,8 +78,9 @@ extension CardInteractorTests {
     self.interactor.presenter = presenter
     self.interactor.worker = worker
     
-    // when
     self.interactor.cardID = nil
+    
+    // when
     self.interactor.fetchCard(request: CardModels.FetchCard.Request())
     
     // then
@@ -95,8 +96,9 @@ extension CardInteractorTests {
     self.interactor.presenter = presenter
     self.interactor.worker = worker
     
-    // when
     self.interactor.cardID = 1
+    
+    // when
     self.interactor.fetchCard(request: CardModels.FetchCard.Request())
     
     // then
@@ -117,8 +119,9 @@ extension CardInteractorTests {
     self.interactor.presenter = presenter
     self.interactor.worker = worker
     
-    // when
     self.interactor.userID = nil
+    
+    // when
     self.interactor.fetchUser(request: CardModels.FetchUser.Request())
     
     // then
@@ -134,8 +137,9 @@ extension CardInteractorTests {
     self.interactor.presenter = presenter
     self.interactor.worker = worker
     
-    // when
     self.interactor.userID = 1
+    
+    // when
     self.interactor.fetchUser(request: CardModels.FetchUser.Request())
     
     // then
