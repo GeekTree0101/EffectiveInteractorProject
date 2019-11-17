@@ -38,9 +38,9 @@ class CardInteractorTests: XCTestCase {
   
   class Stub_CardWorker: CardWorker {
     
-    var getCardValue: Promise<Card> = Promise<Card>.value(Card.init(id: 1))
-    var getUserValue: Promise<User> = Promise<User>.value(User.init(id: 1))
-    var getRelatedCardsValue: Promise<[Card]> = Promise<[Card]>.value([])
+    var getCardValue: Promise<Card>!
+    var getUserValue: Promise<User>!
+    var getRelatedCardsValue: Promise<[Card]>!
     
     override func getCard(id: Int) -> Promise<Card> {
       return getCardValue
@@ -133,7 +133,7 @@ extension CardInteractorTests {
     self.interactor.worker = worker
     
     self.interactor.cardID = 1
-    worker.getUserValue = Promise.value(User.init(id: 1))
+    worker.getCardValue = Promise.value(Card.init(id: 1))
     
     
     // when
@@ -152,7 +152,7 @@ extension CardInteractorTests {
     self.interactor.worker = worker
     
     self.interactor.cardID = 1
-    worker.getUserValue = Promise.init(error: NSError.init(domain: "test", code: -1, userInfo: nil))
+    worker.getCardValue = Promise.init(error: NSError.init(domain: "test", code: -1, userInfo: nil))
     
     
     // when
