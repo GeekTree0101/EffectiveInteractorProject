@@ -220,5 +220,199 @@ Then: worker.getCard must be called once.
   }
 ```
 
+# with Presenter
+
+## Create a Presenter logic
+you don't needs presetner logic implementation. it's just boundrary interface.
+```swift
+
+protocol CardPresenterLogic: class {
+  
+  func presentFetchCard(response: CardModels.FetchCard.Response)
+}
+```
+
+## Spy Presenter for testing
+Go back to the test file again. 
+```swift
+
+import XCTest
+import Nimble
+
+import PromiseKit
+
+@testable import EffectiveInteractorProject
+
+class CardInteractorTests: XCTestCase {
+
+  // Spy Worker
+  class Spy_CardWorker: CardWorker {
+    
+    var getCardCalled: Int = 0
+    
+    override func getCard(id: Int) -> Promise<Card> {
+      getCardCalled += 1
+      return .value(Card.init(id: -1))
+    }
+  }
+  
+  // MARK: - Props
+  var interactor: CardInteractor!
+  
+  override func setUp() {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.interactor = CardInteractor.init()
+  }
+
+}
+```
+For presenter spy testing, we needs two objects ```Stub worker``` & ```Spy presenter```
+
+### Spy Presenter
+Designing spy presenter is same with Spy Worker.
+```swift
+  // Spy Presenter
+  class Spy_Presenter: CardPresenterLogic {
+    
+    var presentFetchCardCalled: Int = 0
+
+    func presentFetchCard(response: CardModels.FetchCard.Response) {
+      presentFetchCardCalled += 1
+    }
+  }
+
+```
+### Stub Worker
+Before, you already had a spy test about worker.
+Now you needs just stub worker for presenter testing. 
+```swift
+
+  class Stub_CardWorker: CardWorker {
+
+    var getCardValue: Promise<Card>!
+
+    override func getCard(id: Int) -> Promise<Card> {
+      return getCardValue
+    }
+  }
+```
+
+> output
+```swift
+
+class CardInteractorTests: XCTestCase {
+
+  // Spy Presenter
+  class Spy_Presenter: CardPresenterLogic {
+    
+    var presentFetchCardCalled: Int = 0
+
+    func presentFetchCard(response: CardModels.FetchCard.Response) {
+      presentFetchCardCalled += 1
+    }
+  }
+
+  // Stub Worker
+  class Stub_CardWorker: CardWorker {
+
+    var getCardValue: Promise<Card>!
+
+    override func getCard(id: Int) -> Promise<Card> {
+      return getCardValue
+    }
+  }
+
+  // Spy Worker
+  class Spy_CardWorker: CardWorker {
+    
+    var getCardCalled: Int = 0
+    
+    override func getCard(id: Int) -> Promise<Card> {
+      getCardCalled += 1
+      return .value(Card.init(id: -1))
+    }
+  }
+  
+  // MARK: - Props
+  var interactor: CardInteractor!
+  
+  override func setUp() {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.interactor = CardInteractor.init()
+  }
+
+}
+```
+Now let's make test code base on BDD
+
+```swift
+
+// MARK: - FetchCard
+
+extension CardInteractorTests {
+
+  // ...
+
+  func testFetchCardShouldBeCalledPresenterOnSuccess() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = 1
+
+    // HERE: Stubbing!
+    worker.getCardValue = Promise.value(Card.init(id: 1))
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(presenter.presentFetchCardCalled).toEventually(equal(1))
+  }
+  
+  func testFetchCardShouldBeCalledPresenterOnError() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = 1
+
+    // HERE: Stubbing!
+    worker.getCardValue = Promise.init(error: NSError.init(domain: "test", code: -1, userInfo: nil))
+    
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(presenter.presentFetchCardCalled).toEventually(equal(1))
+  }
+  
+  func testFetchCardShouldNotBeCalledPresenterWithoutCardID() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = nil
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(presenter.presentFetchCardCalled).toEventually(equal(0))
+  }
+}
+
+```
+
 # Pagination Flow
 <img src="https://github.com/GeekTree0101/EffectiveInteractorProject/blob/master/res/preview2.png" />
