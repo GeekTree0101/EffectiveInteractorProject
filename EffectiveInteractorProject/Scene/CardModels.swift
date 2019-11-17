@@ -10,6 +10,29 @@ import Foundation
 
 enum CardModels {
   
+  enum RelatedCardPaging {
+    
+    struct Request {
+      
+      enum Target {
+        case reload
+        case loadMore
+      }
+      
+      var target: Target
+    }
+    
+    struct Response {
+      
+      var cards: [Card]?
+      var error: Error?
+    }
+    
+    struct ViewModel {
+      
+    }
+  }
+  
   enum FetchCard {
     
     struct Request {

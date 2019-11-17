@@ -12,7 +12,16 @@ import Codextended
 
 class CardWorker {
   
-  
+  public func getRelatedCards(nextSince: Int) -> Promise<[Card]> {
+    
+    return Promise<[Card]> { seal in
+      seal.fulfill([
+        Card.init(id: nextSince + 1),
+        Card.init(id: nextSince + 2),
+        Card.init(id: nextSince + 3)
+      ])
+    }
+  }
   
   public func getCard(id: Int) -> Promise<Card> {
     

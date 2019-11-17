@@ -12,6 +12,7 @@ protocol CardPresenterLogic: class {
   
   func presentFetchCard(response: CardModels.FetchCard.Response)
   func presentFetchUser(response: CardModels.FetchUser.Response)
+  func presentFetchRelatedCard(response: CardModels.RelatedCardPaging.Response)
 }
 
 class CardPresenter: CardPresenterLogic {
@@ -22,5 +23,9 @@ class CardPresenter: CardPresenterLogic {
   
   func presentFetchUser(response: CardModels.FetchUser.Response) {
      
+  }
+  
+  func presentFetchRelatedCard(response: CardModels.RelatedCardPaging.Response) {
+    
   }
 }

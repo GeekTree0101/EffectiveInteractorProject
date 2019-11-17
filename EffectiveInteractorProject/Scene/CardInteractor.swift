@@ -21,6 +21,7 @@ protocol CardInteractorLogic: class {
   
   func fetchCard(request: CardModels.FetchCard.Request)
   func fetchUser(request: CardModels.FetchUser.Request)
+  func fetchRelatedCard(request: CardModels.RelatedCardPaging.Request) -> Promise<Bool>
 }
 
 class CardInteractor: CardDataStore {
@@ -30,6 +31,10 @@ class CardInteractor: CardDataStore {
   var userID: Int?
   var card: Card?
   var user: User?
+  
+  // MARK: - Private Props
+  var relatedCards: [Card]?
+  var nextSince: Int?
   
   public var worker: CardWorker = CardWorker.init()
   public var presenter: CardPresenterLogic?
@@ -68,6 +73,51 @@ extension CardInteractor: CardInteractorLogic {
         self.presenter?.presentFetchUser(
           response: CardModels.FetchUser.Response(error: error)
         )
+      })
+  }
+  
+  func fetchRelatedCard(request: CardModels.RelatedCardPaging.Request) -> Promise<Bool> {
+    
+    let fetchRelatedCardWorkflow: Promise<[Card]>
+    
+    switch request.target {
+    case .reload:
+      fetchRelatedCardWorkflow = worker.getRelatedCards(nextSince: 0)
+    case .loadMore:
+      guard let nextSince = self.nextSince else {
+        return .value(false)
+      }
+      fetchRelatedCardWorkflow = worker.getRelatedCards(nextSince: nextSince)
+    }
+    
+    return fetchRelatedCardWorkflow
+      .then(on: .main, { cards -> Promise<Bool> in
+        self.nextSince = cards.last?.id
+        
+        switch request.target {
+        case .reload:
+          self.relatedCards = cards
+        case .loadMore:
+          self.relatedCards = self.relatedCards ?? [] + cards
+        }
+        
+        self.presenter?.presentFetchRelatedCard(
+          response: CardModels.RelatedCardPaging.Response(
+            cards: self.relatedCards,
+            error: nil
+          )
+        )
+        return .value(self.nextSince != nil)
+      })
+      .recover(on: .main, { error -> Promise<Bool> in
+        
+        self.presenter?.presentFetchRelatedCard(
+          response: CardModels.RelatedCardPaging.Response(
+            cards: self.relatedCards,
+            error: error
+          )
+        )
+        return .value(self.nextSince != nil)
       })
   }
 }

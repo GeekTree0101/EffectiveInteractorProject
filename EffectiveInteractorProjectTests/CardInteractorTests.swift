@@ -21,6 +21,7 @@ class CardInteractorTests: XCTestCase {
     
     var presentFetchCardCalled: Int = 0
     var presentFetchUserCalled: Int = 0
+    var presentFetchRelatedCardCalled: Int = 0
     
     func presentFetchCard(response: CardModels.FetchCard.Response) {
       presentFetchCardCalled += 1
@@ -29,7 +30,10 @@ class CardInteractorTests: XCTestCase {
     func presentFetchUser(response: CardModels.FetchUser.Response) {
       presentFetchUserCalled += 1
     }
-    
+
+    func presentFetchRelatedCard(response: CardModels.RelatedCardPaging.Response) {
+      presentFetchRelatedCardCalled += 1
+    }
   }
   
   class Spy_CardWorker: CardWorker {
@@ -138,4 +142,59 @@ extension CardInteractorTests {
     expect(worker.getUserCalled).toEventually(equal(1))
     expect(presenter.presentFetchUserCalled).toEventually(equal(1))
   }
+}
+
+// MARK: - Related card pagination
+
+extension CardInteractorTests {
+  
+  func testFetchCardShouldBeSuccessToReload() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Spy_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    // when
+    let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .reload))
+    
+    // then
+    expect(presenter.presentFetchRelatedCardCalled).toEventually(equal(1))
+    expect(try? hang(hasNext)) == true
+  }
+  
+  func testFetchCardShouldBeSuccessToLoadMore() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Spy_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    self.interactor.nextSince = 100
+    
+    // when
+    let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
+    
+    // then
+    expect(presenter.presentFetchRelatedCardCalled).toEventually(equal(1))
+    expect(try? hang(hasNext)) == true
+  }
+  
+  func testFetchCardShouldBeEndedPaging() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Spy_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    // when
+    let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
+    
+    // then
+    expect(presenter.presentFetchRelatedCardCalled).toEventually(equal(0))
+    expect(try? hang(hasNext)) == false
+  }
+  
 }
