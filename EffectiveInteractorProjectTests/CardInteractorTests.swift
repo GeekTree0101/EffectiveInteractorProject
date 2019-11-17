@@ -36,6 +36,20 @@ class CardInteractorTests: XCTestCase {
     }
   }
   
+  class Stub_CardWorker: CardWorker {
+    
+    var getCardValue: Promise<Card> = Promise<Card>.value(Card.init(id: 1))
+    var getUserValue: Promise<User> = Promise<User>.value(User.init(id: 1))
+    
+    override func getCard(id: Int) -> Promise<Card> {
+      return getCardValue
+    }
+    
+    override func getUser(id: Int) -> Promise<User> {
+      return getUserValue
+    }
+  }
+  
   class Spy_CardWorker: CardWorker {
     
     var getCardCalled: Int = 0
@@ -72,8 +86,76 @@ extension CardInteractorTests {
   
   func testFetchCardShouldBeFailedWithoutCardID() {
     // given
-    let presenter = Spy_CardPresenter()
     let worker = Spy_CardWorker()
+    
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = nil
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(worker.getCardCalled).toEventually(equal(0))
+  }
+  
+  func testFetchCardShouldBeSuccessWithCardID() {
+    // given
+    let worker = Spy_CardWorker()
+    
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = 1
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(worker.getCardCalled).toEventually(equal(1))
+  }
+  
+  func testFetchCardShouldBeCalledPresenterOnSuccess() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = 1
+    worker.getUserValue = Promise.value(User.init(id: 1))
+    
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(presenter.presentFetchCardCalled).toEventually(equal(1))
+  }
+  
+  func testFetchCardShouldBeCalledPresenterOnError() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.cardID = 1
+    worker.getUserValue = Promise.init(error: NSError.init(domain: "test", code: -1, userInfo: nil))
+    
+    
+    // when
+    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
+    
+    // then
+    expect(presenter.presentFetchCardCalled).toEventually(equal(1))
+  }
+  
+  func testFetchCardShouldNotBeCalledPresenterWithoutCardID() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
     
     self.interactor.presenter = presenter
     self.interactor.worker = worker
@@ -84,26 +166,7 @@ extension CardInteractorTests {
     self.interactor.fetchCard(request: CardModels.FetchCard.Request())
     
     // then
-    expect(worker.getCardCalled).toEventually(equal(0))
     expect(presenter.presentFetchCardCalled).toEventually(equal(0))
-  }
-  
-  func testFetchCardShouldBeSuccessWithCardID() {
-    // given
-    let presenter = Spy_CardPresenter()
-    let worker = Spy_CardWorker()
-    
-    self.interactor.presenter = presenter
-    self.interactor.worker = worker
-    
-    self.interactor.cardID = 1
-    
-    // when
-    self.interactor.fetchCard(request: CardModels.FetchCard.Request())
-    
-    // then
-    expect(worker.getCardCalled).toEventually(equal(1))
-    expect(presenter.presentFetchCardCalled).toEventually(equal(1))
   }
 }
 
