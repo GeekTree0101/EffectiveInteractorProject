@@ -40,6 +40,7 @@ class CardInteractorTests: XCTestCase {
     
     var getCardValue: Promise<Card> = Promise<Card>.value(Card.init(id: 1))
     var getUserValue: Promise<User> = Promise<User>.value(User.init(id: 1))
+    var getRelatedCardsValue: Promise<[Card]> = Promise<[Card]>.value([])
     
     override func getCard(id: Int) -> Promise<Card> {
       return getCardValue
@@ -48,12 +49,17 @@ class CardInteractorTests: XCTestCase {
     override func getUser(id: Int) -> Promise<User> {
       return getUserValue
     }
+    
+    override func getRelatedCards(nextSince: Int) -> Promise<[Card]> {
+      return getRelatedCardsValue
+    }
   }
   
   class Spy_CardWorker: CardWorker {
     
     var getCardCalled: Int = 0
     var getUserCalled: Int = 0
+    var getRelatedCardsCalled: Int = 0
     
     override func getCard(id: Int) -> Promise<Card> {
       getCardCalled += 1
@@ -65,6 +71,10 @@ class CardInteractorTests: XCTestCase {
       return .value(User.init(id: -1))
     }
     
+    override func getRelatedCards(nextSince: Int) -> Promise<[Card]> {
+      getRelatedCardsCalled += 1
+      return .value([])
+    }
   }
   
   // MARK: - Props
@@ -176,10 +186,8 @@ extension CardInteractorTests {
   
   func testFetchUserShouldBeFailedWithoutUserID() {
     // given
-    let presenter = Spy_CardPresenter()
     let worker = Spy_CardWorker()
     
-    self.interactor.presenter = presenter
     self.interactor.worker = worker
     
     self.interactor.userID = nil
@@ -189,15 +197,12 @@ extension CardInteractorTests {
     
     // then
     expect(worker.getUserCalled).toEventually(equal(0))
-    expect(presenter.presentFetchUserCalled).toEventually(equal(0))
   }
   
   func testFetchUserShouldBeSuccessWithUserID() {
     // given
-    let presenter = Spy_CardPresenter()
     let worker = Spy_CardWorker()
     
-    self.interactor.presenter = presenter
     self.interactor.worker = worker
     
     self.interactor.userID = 1
@@ -207,7 +212,43 @@ extension CardInteractorTests {
     
     // then
     expect(worker.getUserCalled).toEventually(equal(1))
+  }
+  
+  
+  func testFetchUserShouldBeCalledPresenter() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.userID = 1
+    worker.getUserValue = Promise.value(User.init(id: 1))
+    
+    // when
+    self.interactor.fetchUser(request: CardModels.FetchUser.Request())
+    
+    // then
     expect(presenter.presentFetchUserCalled).toEventually(equal(1))
+  }
+  
+  func testFetchUserShouldNotBeCalledPresenter() {
+    // given
+    let presenter = Spy_CardPresenter()
+    let worker = Stub_CardWorker()
+    
+    self.interactor.presenter = presenter
+    self.interactor.worker = worker
+    
+    self.interactor.userID = nil
+    worker.getUserValue = Promise.value(User.init(id: 1))
+    
+    // when
+    self.interactor.fetchUser(request: CardModels.FetchUser.Request())
+    
+    // then
+    expect(presenter.presentFetchUserCalled).toEventually(equal(0))
   }
 }
 
@@ -215,13 +256,58 @@ extension CardInteractorTests {
 
 extension CardInteractorTests {
   
-  func testFetchCardShouldBeSuccessToReload() {
+  func testFetchRelatedCardShouldBeCalledRelatedCard() {
+    // given
+    let worker = Spy_CardWorker.init()
+    
+    self.interactor.worker = worker
+    self.interactor.nextSince = nil
+    
+    // when
+    _ = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .reload))
+    
+    // then
+    expect(worker.getRelatedCardsCalled).toEventually(equal(1))
+  }
+  
+  func testFetchRelatedCardShouldBeCalledRelatedCard2() {
+    // given
+    let worker = Spy_CardWorker.init()
+    
+    self.interactor.worker = worker
+    self.interactor.nextSince = 100
+    
+    // when
+    _ = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
+    
+    // then
+    expect(worker.getRelatedCardsCalled).toEventually(equal(1))
+  }
+  
+  func testFetchRelatedCardShouldBeNotCalledRelatedCard() {
+    // given
+    let worker = Spy_CardWorker.init()
+    
+    self.interactor.worker = worker
+    self.interactor.nextSince = nil
+    
+    // when
+    _ = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
+    
+    // then
+    expect(worker.getRelatedCardsCalled).toEventually(equal(0))
+  }
+  
+  
+  func testFetchRelatedCardShouldBeCalledPresenterOnSuccessToReload() {
     // given
     let presenter = Spy_CardPresenter()
-    let worker = Spy_CardWorker()
+    let worker = Stub_CardWorker()
     
     self.interactor.presenter = presenter
     self.interactor.worker = worker
+    
+    worker.getRelatedCardsValue = Promise.value([Card.init(id: 1)])
     
     // when
     let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .reload))
@@ -231,14 +317,16 @@ extension CardInteractorTests {
     expect(try? hang(hasNext)) == true
   }
   
-  func testFetchCardShouldBeSuccessToLoadMore() {
+  func testFetchRelatedCardShouldBeCalledPresenterOnSuccessToLoadMore() {
     // given
     let presenter = Spy_CardPresenter()
-    let worker = Spy_CardWorker()
+    let worker = Stub_CardWorker()
     
     self.interactor.presenter = presenter
     self.interactor.worker = worker
     self.interactor.nextSince = 100
+    
+    worker.getRelatedCardsValue = Promise.value([Card.init(id: 101)])
     
     // when
     let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
@@ -248,13 +336,15 @@ extension CardInteractorTests {
     expect(try? hang(hasNext)) == true
   }
   
-  func testFetchCardShouldBeEndedPaging() {
+  func testFetchRelatedCardShouldBeCalledPresenterOnEndedPaging() {
     // given
     let presenter = Spy_CardPresenter()
-    let worker = Spy_CardWorker()
+    let worker = Stub_CardWorker()
     
     self.interactor.presenter = presenter
     self.interactor.worker = worker
+    
+    worker.getRelatedCardsValue = Promise.value([Card.init(id: 101)])
     
     // when
     let hasNext = self.interactor.fetchRelatedCard(request: CardModels.RelatedCardPaging.Request(target: .loadMore))
